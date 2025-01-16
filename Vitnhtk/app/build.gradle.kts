@@ -25,25 +25,36 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
-
+    // AndroidX Libraries
     implementation(libs.appcompat)
-    implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+
+    // Material Design
+    implementation(libs.material)
+
+    // Navigation Component
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.room.common)
+    implementation(libs.room.runtime)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    annotationProcessor(libs.room.compiler)
 }

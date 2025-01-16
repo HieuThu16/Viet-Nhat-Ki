@@ -1,202 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    android:layout_height="match_parent">
 
-    <!-- LinearLayout chính -->
-
-    <!-- Thanh điều hướng -->
-
-    <LinearLayout
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp">
-
-        <!-- Tiêu đề ứng dụng -->
-        <!-- Giảm kích thước chữ xuống -->
-
-        <!-- Ngày được chọn -->
-        <LinearLayout
-            android:layout_width="367dp"
-            android:layout_height="37dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/tvSelectedDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="Ngày: 15/01/2025"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnSelectDate"
-                android:layout_width="206dp"
-                android:layout_height="37dp"
-                android:text="Thay đổi ngày" />
-        </LinearLayout>
-
-        <!-- Các ô nhập liệu -->
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            android:columnCount="2"
-            android:rowCount="2">
-
-            <!-- Điều Tích Cực -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:background="@color/green"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Điều Tích Cực"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etPositive"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white"
-                    android:gravity="top|start"
-                    android:hint="Nhập nội dung..."
-                    android:inputType="textMultiLine"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-            <!-- Điều Tiêu Cực -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:background="@color/green"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Điều Tiêu Cực"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etNegative"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white"
-                    android:gravity="top|start"
-                    android:hint="Nhập nội dung..."
-                    android:inputType="textMultiLine"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-            <!-- Tiến Bộ Trong Ngày -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:background="@color/purple_500"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Tiến Bộ Trong Ngày"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etProgress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white"
-                    android:gravity="top|start"
-                    android:hint="Nhập nội dung..."
-                    android:inputType="textMultiLine"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-            <!-- Điều Mới Học Được -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="4dp"
-                android:background="@color/green"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Điều Mới Học Được"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etLearned"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white"
-                    android:gravity="top|start"
-                    android:hint="Nhập nội dung..."
-                    android:inputType="textMultiLine"
-                    android:padding="8dp" />
-            </LinearLayout>
-
-        </GridLayout>
-
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="332dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/purple_500"
-            android:text="Nhiệm Vụ Ngày Mai"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-
-        <!-- Nút Lưu -->
-    </LinearLayout>
+        app:navGraph="@navigation/mobile_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
+        android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

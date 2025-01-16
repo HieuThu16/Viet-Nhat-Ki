@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Trạng thái khi nhấn (pressed) -->
+    <item android:state_pressed="true" android:color="#1565C0" /> <!-- Màu xanh dương đậm hơn khi nhấn -->
+
+    <!-- Trạng thái được chọn (selected) -->
+    <item android:state_selected="true" android:color="#64B5F6" /> <!-- Màu xanh dương nhạt hơn khi được chọn -->
+
+    <!-- Trạng thái mặc định -->
+    <item android:color="#2196F3" /> <!-- Màu xanh dương mặc định -->
+</selector>
