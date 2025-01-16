@@ -5,10 +5,12 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
 @Dao
+
 public interface JournalDao {
 
     // Truy vấn để lấy một mục nhập nhật ký theo ngày
@@ -19,7 +21,12 @@ public interface JournalDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(JournalEntry journalEntry);
 
+    // Cập nhật nhật ký (có thể dùng Update nếu bạn không muốn chèn lại)
+    @Update
+    void update(JournalEntry journalEntry);
+
     // Xóa toàn bộ nhật ký (nếu cần)
     @Query("DELETE FROM journal_entries")
     void deleteAll();
 }
+

@@ -2,6 +2,7 @@ package com.example.vitnhtk.ui.home;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -58,10 +61,18 @@ public class HomeFragment extends Fragment {
     private void setupListeners() {
         // Lưu dữ liệu
         binding.btnSave.setOnClickListener(v -> {
+            // Lấy dữ liệu từ EditText
             String positive = binding.etPositive.getText().toString();
             String negative = binding.etNegative.getText().toString();
             String progress = binding.etProgress.getText().toString();
             String learned = binding.etLearned.getText().toString();
+
+            // In log để kiểm tra dữ liệu trước khi lưu
+            Log.d("HomeFragment", "Saving Journal Entry: ");
+            Log.d("HomeFragment", "Positive: " + positive);
+            Log.d("HomeFragment", "Negative: " + negative);
+            Log.d("HomeFragment", "Progress: " + progress);
+            Log.d("HomeFragment", "Learned: " + learned);
 
             // Lưu vào cơ sở dữ liệu
             saveJournalEntry(
@@ -78,44 +89,58 @@ public class HomeFragment extends Fragment {
     }
 
     private void saveJournalEntry(String date, String positive, String negative, String progress, String learned) {
-        // Tạo một JournalEntry mới
-        JournalEntry journalEntry = new JournalEntry(date, positive, negative, progress, learned);
-
-        // Lưu vào cơ sở dữ liệu trong background thread
         new Thread(() -> {
-            appDatabase.journalDao().insert(journalEntry);
+            JournalEntry existingEntry = appDatabase.journalDao().getEntryByDate(date);
 
-            // Load lại dữ liệu ngày đã chọn và cập nhật giao diện
-            requireActivity().runOnUiThread(() -> {
-                Toast.makeText(getContext(), "Đã lưu thành công!", Toast.LENGTH_SHORT).show();
-                clearInputs();
-                loadJournalEntry(date);
-            });
-        }).start();
-    }
+            if (existingEntry != null) {
+                // Nếu có rồi, cập nhật toàn bộ đối tượng
+                existingEntry.setPositive(positive);
+                existingEntry.setNegative(negative);
+                existingEntry.setProgress(progress);
+                existingEntry.setLearned(learned);
 
-    private void loadJournalEntry(String date) {
-        // Lấy dữ liệu ngày đã chọn từ cơ sở dữ liệu
-        new Thread(() -> {
-            JournalEntry entry = appDatabase.journalDao().getEntryByDate(date);
-
-            if (entry != null) {
-                // Hiển thị dữ liệu lên giao diện
+                appDatabase.journalDao().update(existingEntry); // Cập nhật
                 requireActivity().runOnUiThread(() -> {
-                    binding.etPositive.setText(entry.getPositive());
-                    binding.etNegative.setText(entry.getNegative());
-                    binding.etProgress.setText(entry.getProgress());
-                    binding.etLearned.setText(entry.getLearned());
+                    Toast.makeText(getContext(), "Đã cập nhật nhật ký!", Toast.LENGTH_SHORT).show();
+                    loadJournalEntry(date); // Tải lại dữ liệu đã cập nhật
                 });
             } else {
-                // Nếu không có dữ liệu, thông báo
+                // Nếu chưa có, tạo mục mới và chèn vào cơ sở dữ liệu
+                JournalEntry journalEntry = new JournalEntry(date, positive, negative, progress, learned);
+                appDatabase.journalDao().insert(journalEntry); // Chèn mới
                 requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(getContext(), "Không có dữ liệu cho ngày này!", Toast.LENGTH_SHORT).show();
-                    clearInputs();
+                    Toast.makeText(getContext(), "Đã lưu thành công!", Toast.LENGTH_SHORT).show();
+                    loadJournalEntry(date); // Tải lại dữ liệu mới
                 });
             }
         }).start();
     }
+
+
+
+    private void loadJournalEntry(String date) {
+        // Lấy dữ liệu nhật ký cho ngày đã chọn
+        new Thread(() -> {
+            JournalEntry entry = appDatabase.journalDao().getEntryByDate(date);
+
+            requireActivity().runOnUiThread(() -> {
+                if (entry != null) {
+                    // Hiển thị dữ liệu lên giao diện
+                    binding.etPositive.setText(entry.getPositive());
+                    binding.etNegative.setText(entry.getNegative());
+                    binding.etProgress.setText(entry.getProgress());
+                    binding.etLearned.setText(entry.getLearned());
+                } else {
+                    // Nếu không có dữ liệu, thông báo
+                    Toast.makeText(getContext(), "Không có dữ liệu cho ngày này!", Toast.LENGTH_SHORT).show();
+                    clearInputs();
+                }
+            });
+        }).start();
+    }
+
+
+
 
     private void observeViewModel() {
         // Theo dõi ngày được chọn

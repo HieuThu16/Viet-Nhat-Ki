@@ -35,4 +35,14 @@ public class JournalEntry {
     public void setProgress(String progress) { this.progress = progress; }
     public String getLearned() { return learned; }
     public void setLearned(String learned) { this.learned = learned; }
+    @Override
+    public String toString() {
+        return "JournalEntry{" +
+                "date='" + date + '\'' +
+                ", positive='" + positive + '\'' +
+                ", negative='" + negative + '\'' +
+                ", progress='" + progress + '\'' +
+                ", learned='" + learned + '\'' +
+                '}';
+    }
 }

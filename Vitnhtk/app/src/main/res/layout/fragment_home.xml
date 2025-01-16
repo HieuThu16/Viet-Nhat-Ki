@@ -104,9 +104,9 @@
                             android:id="@+id/etPositive"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@android:color/white"
+                            android:background="@android:color/black"
                             android:gravity="top|start"
-                            android:hint="Nhập nội dung..."
+
                             android:inputType="textMultiLine"
                             android:padding="8dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -147,9 +147,9 @@
                             android:id="@+id/etNegative"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@android:color/white"
+                            android:background="@android:color/black"
                             android:gravity="top|start"
-                            android:hint="Nhập nội dung..."
+
                             android:inputType="textMultiLine"
                             android:padding="8dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -190,9 +190,9 @@
                             android:id="@+id/etProgress"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@android:color/white"
+                            android:background="@android:color/black"
                             android:gravity="top|start"
-                            android:hint="Nhập nội dung..."
+
                             android:inputType="textMultiLine"
                             android:padding="8dp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -233,9 +233,9 @@
                             android:id="@+id/etLearned"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@android:color/white"
+                            android:background="@android:color/black"
                             android:gravity="top|start"
-                            android:hint="Nhập nội dung..."
+
                             android:inputType="textMultiLine"
                             android:padding="8dp" />
                     </com.google.android.material.textfield.TextInputLayout>
