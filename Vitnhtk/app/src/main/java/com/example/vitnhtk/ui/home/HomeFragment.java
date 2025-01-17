@@ -2,10 +2,13 @@ package com.example.vitnhtk.ui.home;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vitnhtk.AppDatabase;
 import com.example.vitnhtk.JournalEntry;
+import com.example.vitnhtk.R;
 import com.example.vitnhtk.databinding.FragmentHomeBinding;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,24 +62,14 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-
     private void setupListeners() {
         // Lưu dữ liệu
         binding.btnSave.setOnClickListener(v -> {
-            // Lấy dữ liệu từ EditText
             String positive = binding.etPositive.getText().toString();
             String negative = binding.etNegative.getText().toString();
             String progress = binding.etProgress.getText().toString();
             String learned = binding.etLearned.getText().toString();
 
-            // In log để kiểm tra dữ liệu trước khi lưu
-            Log.d("HomeFragment", "Saving Journal Entry: ");
-            Log.d("HomeFragment", "Positive: " + positive);
-            Log.d("HomeFragment", "Negative: " + negative);
-            Log.d("HomeFragment", "Progress: " + progress);
-            Log.d("HomeFragment", "Learned: " + learned);
-
-            // Lưu vào cơ sở dữ liệu
             saveJournalEntry(
                     dateFormat.format(calendar.getTime()),
                     positive,
@@ -86,7 +81,46 @@ public class HomeFragment extends Fragment {
 
         // Chọn ngày
         binding.btnSelectDate.setOnClickListener(v -> showDatePicker());
+
+        // Theo dõi thay đổi trong từng ô nhập liệu
+        TextWatcher wordCountWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updateWordCount();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+
+        binding.etPositive.addTextChangedListener(wordCountWatcher);
+        binding.etNegative.addTextChangedListener(wordCountWatcher);
+        binding.etProgress.addTextChangedListener(wordCountWatcher);
+        binding.etLearned.addTextChangedListener(wordCountWatcher);
+
+        // Cập nhật số từ ban đầu
+        updateWordCount();
     }
+    private void updateWordCount() {
+        String positive = binding.etPositive.getText().toString().trim();
+        String negative = binding.etNegative.getText().toString().trim();
+        String progress = binding.etProgress.getText().toString().trim();
+        String learned = binding.etLearned.getText().toString().trim();
+
+        int wordCount = countWords(positive) + countWords(negative) + countWords(progress) + countWords(learned);
+        binding.tvWordCount.setText(wordCount + " từ");
+    }
+
+    private int countWords(String text) {
+        if (text.isEmpty()) {
+            return 0;
+        }
+        return text.split("\\s+").length;
+    }
+
 
     private void saveJournalEntry(String date, String positive, String negative, String progress, String learned) {
         new Thread(() -> {
