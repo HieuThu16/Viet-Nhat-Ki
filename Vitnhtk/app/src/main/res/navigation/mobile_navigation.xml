@@ -22,4 +22,11 @@
         android:name="com.example.vitnhtk.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_achievements"
+        android:name="com.example.vitnhtk.ui.achievement.AchievementFragment"
+        android:label="@string/title_achievements"
+        tools:layout="@layout/fragment_achievement" />
+
 </navigation>

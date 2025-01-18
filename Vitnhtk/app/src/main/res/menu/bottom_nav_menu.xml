@@ -16,4 +16,11 @@
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_notifications" />
 
+    <!-- Nút mới: Thành tựu -->
+    <item
+        android:id="@+id/navigation_achievements"
+        android:icon="@drawable/ic_achievements_black_24dp"
+        android:title="@string/title_achievements" />
+
+
 </menu>
